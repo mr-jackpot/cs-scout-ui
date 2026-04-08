@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/mr-jackpot/cs-scout-ui/compare/csscout-v0.2.0...csscout-v0.3.0) (2026-04-08)
+
+
+### Features
+
+* added career stats summary and error states ([3220334](https://github.com/mr-jackpot/cs-scout-ui/commit/32203342c82884f4e94279bb81968221e1249c13))
+
 ## [0.2.0](https://github.com/mr-jackpot/ui-cs2-league-stats/compare/csscout-v0.1.0...csscout-v0.2.0) (2026-04-08)
 
 
