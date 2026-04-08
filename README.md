@@ -53,16 +53,26 @@ export const config = {
 
 ### Firebase Hosting (Frontend)
 
+Production deploys happen automatically when a release is created via release-please (see Versioning & CI below).
+
+Preview deploys are created automatically on every PR — check the PR comments for the preview URL.
+
+**Manual deploy (if needed):**
+
 ```bash
-# Login to Firebase
 firebase login
-
-# Build for production
 npm run build
-
-# Deploy
 firebase deploy --only hosting
 ```
+
+### Setup: `FIREBASE_SERVICE_ACCOUNT` Secret
+
+For CI/CD deploys, add a GitHub repo secret:
+
+1. Go to [Firebase Console](https://console.firebase.google.com/) → Project Settings → Service Accounts
+2. Click **Generate new private key** → download the JSON file
+3. Go to your GitHub repo → Settings → Secrets and variables → Actions
+4. Add a new secret named `FIREBASE_SERVICE_ACCOUNT` with the JSON file contents
 
 ### Configuration Files
 
@@ -90,6 +100,22 @@ src/
 └── test/           # Test setup
     └── setup.ts
 ```
+
+## AI Agent Instructions
+
+Copilot CLI and other AI agents: see [`.github/copilot-instructions.md`](.github/copilot-instructions.md) for project conventions and patterns.
+
+## Versioning & CI
+
+This project uses automatic semantic versioning via [release-please](https://github.com/googleapis/release-please).
+
+- **PR titles must follow [Conventional Commits](https://www.conventionalcommits.org/)** format:
+  - `feat: add player comparison` → minor bump
+  - `fix: broken search on mobile` → patch bump
+  - `feat!: redesign player page` → major bump (breaking change)
+- On merge to `main`, release-please creates/updates a **Release PR** tracking pending changes
+- Merging the Release PR bumps the version in `package.json`, updates `CHANGELOG.md`, creates a git tag, GitHub Release, and **deploys to Firebase Hosting**
+- CI runs lint + build + tests on every PR, and deploys a **Firebase preview channel** (check PR comments for the preview URL)
 
 ## License
 

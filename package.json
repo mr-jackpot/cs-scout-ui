@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "country-flag-icons": "^1.6.4",
+    "firebase": "^12.8.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.12.0"
