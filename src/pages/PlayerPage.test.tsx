@@ -8,6 +8,7 @@ import * as api from '../services/api';
 vi.mock('../services/api');
 
 const mockGetPlayer = vi.mocked(api.getPlayer);
+const mockSearchPlayers = vi.mocked(api.searchPlayers);
 const mockGetPlayerSeasons = vi.mocked(api.getPlayerSeasons);
 const mockGetPlayerStats = vi.mocked(api.getPlayerStats);
 
@@ -20,11 +21,11 @@ vi.mock('react-router-dom', async () => {
   };
 });
 
-const renderWithRouter = (playerId: string) => {
+const renderWithRouter = (nickname: string) => {
   return render(
-    <MemoryRouter initialEntries={[`/player/${playerId}`]}>
+    <MemoryRouter initialEntries={[`/player/${nickname}`]}>
       <Routes>
-        <Route path="/player/:playerId" element={<PlayerPage />} />
+        <Route path="/player/:nickname" element={<PlayerPage />} />
       </Routes>
     </MemoryRouter>
   );
@@ -37,6 +38,16 @@ describe('PlayerPage', () => {
   });
 
   it('fetches and displays player data', async () => {
+    mockSearchPlayers.mockResolvedValueOnce({
+      items: [
+        {
+          player_id: '123',
+          nickname: 'TestPlayer',
+          avatar: 'https://example.com/avatar.jpg',
+          country: 'US',
+        },
+      ],
+    });
     mockGetPlayer.mockResolvedValueOnce({
       player_id: '123',
       nickname: 'TestPlayer',
@@ -54,20 +65,23 @@ describe('PlayerPage', () => {
       ],
     });
 
-    renderWithRouter('123');
+    renderWithRouter('TestPlayer');
 
     await waitFor(() => {
       expect(screen.getByText('TestPlayer')).toBeInTheDocument();
     });
 
-    expect(screen.getByText('ESEA S55')).toBeInTheDocument();
-    expect(mockGetPlayer).toHaveBeenCalledWith('123');
+    await waitFor(() => {
+      expect(screen.getByText('ESEA S55')).toBeInTheDocument();
+    });
+
+    expect(mockSearchPlayers).toHaveBeenCalledWith('TestPlayer');
     expect(mockGetPlayerSeasons).toHaveBeenCalledWith('123');
   });
 
   it('uses cached player data from sessionStorage', async () => {
     sessionStorage.setItem(
-      'player-123',
+      'player-CachedPlayer',
       JSON.stringify({
         player_id: '123',
         nickname: 'CachedPlayer',
@@ -76,21 +90,37 @@ describe('PlayerPage', () => {
       })
     );
 
+    mockGetPlayer.mockResolvedValueOnce({
+      player_id: '123',
+      nickname: 'CachedPlayer',
+      avatar: 'https://example.com/avatar.jpg',
+      country: 'GB',
+    });
     mockGetPlayerSeasons.mockResolvedValueOnce({
       player_id: '123',
       seasons: [],
     });
 
-    renderWithRouter('123');
+    renderWithRouter('CachedPlayer');
 
     await waitFor(() => {
       expect(screen.getByText('CachedPlayer')).toBeInTheDocument();
     });
 
-    expect(mockGetPlayer).not.toHaveBeenCalled();
+    expect(mockSearchPlayers).not.toHaveBeenCalled();
   });
 
   it('shows error on seasons fetch failure', async () => {
+    mockSearchPlayers.mockResolvedValueOnce({
+      items: [
+        {
+          player_id: '123',
+          nickname: 'TestPlayer',
+          avatar: 'https://example.com/avatar.jpg',
+          country: 'US',
+        },
+      ],
+    });
     mockGetPlayer.mockResolvedValueOnce({
       player_id: '123',
       nickname: 'TestPlayer',
@@ -99,7 +129,7 @@ describe('PlayerPage', () => {
     });
     mockGetPlayerSeasons.mockRejectedValueOnce(new Error('API error'));
 
-    renderWithRouter('123');
+    renderWithRouter('TestPlayer');
 
     await waitFor(() => {
       expect(screen.getByText('Failed to fetch player seasons')).toBeInTheDocument();
@@ -107,6 +137,16 @@ describe('PlayerPage', () => {
   });
 
   it('fetches stats when season is selected', async () => {
+    mockSearchPlayers.mockResolvedValueOnce({
+      items: [
+        {
+          player_id: '123',
+          nickname: 'TestPlayer',
+          avatar: 'https://example.com/avatar.jpg',
+          country: 'US',
+        },
+      ],
+    });
     mockGetPlayer.mockResolvedValueOnce({
       player_id: '123',
       nickname: 'TestPlayer',
@@ -142,7 +182,7 @@ describe('PlayerPage', () => {
     });
 
     const user = userEvent.setup();
-    renderWithRouter('123');
+    renderWithRouter('TestPlayer');
 
     await waitFor(() => {
       expect(screen.getByText('ESEA S55')).toBeInTheDocument();
@@ -159,6 +199,16 @@ describe('PlayerPage', () => {
   });
 
   it('navigates back when back button is clicked', async () => {
+    mockSearchPlayers.mockResolvedValueOnce({
+      items: [
+        {
+          player_id: '123',
+          nickname: 'TestPlayer',
+          avatar: 'https://example.com/avatar.jpg',
+          country: 'US',
+        },
+      ],
+    });
     mockGetPlayer.mockResolvedValueOnce({
       player_id: '123',
       nickname: 'TestPlayer',
@@ -171,7 +221,7 @@ describe('PlayerPage', () => {
     });
 
     const user = userEvent.setup();
-    renderWithRouter('123');
+    renderWithRouter('TestPlayer');
 
     await waitFor(() => {
       expect(screen.getByText('TestPlayer')).toBeInTheDocument();
