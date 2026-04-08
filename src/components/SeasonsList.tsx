@@ -5,10 +5,11 @@ interface SeasonsListProps {
   seasons: Season[];
   seasonStatsMap: Record<string, PlayerStats>;
   loadingStatsMap: Record<string, boolean>;
+  failedStatsSet: Set<string>;
   onSelectSeason: (season: Season) => void;
 }
 
-export function SeasonsList({ seasons, seasonStatsMap, loadingStatsMap, onSelectSeason }: SeasonsListProps) {
+export function SeasonsList({ seasons, seasonStatsMap, loadingStatsMap, failedStatsSet, onSelectSeason }: SeasonsListProps) {
   // Filter out seasons with 0 matches (only after stats are loaded)
   const filteredSeasons = seasons.filter((season) => {
     const stats = seasonStatsMap[season.competition_id];
@@ -73,6 +74,12 @@ export function SeasonsList({ seasons, seasonStatsMap, loadingStatsMap, onSelect
                   kdRatio={seasonStatsMap[season.competition_id].kd_ratio}
                   adr={seasonStatsMap[season.competition_id].adr}
                 />
+              ) : failedStatsSet.has(season.competition_id) ? (
+                <span title="Stats failed to load">
+                  <svg className="w-4 h-4 text-amber-400/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v4m0 3h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                  </svg>
+                </span>
               ) : null}
             </div>
 

@@ -8,3 +8,4 @@ export { StatBar } from './StatBar';
 export { RatingBadge } from './RatingBadge';
 export { InlineRatingBadge } from './InlineRatingBadge';
 export { NoResultsFound } from './NoResultsFound';
+export { CareerOverviewCard } from './CareerOverviewCard';

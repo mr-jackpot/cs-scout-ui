@@ -20,6 +20,7 @@ const mockSeasons: Season[] = [
 const defaultProps = {
   seasonStatsMap: {},
   loadingStatsMap: {},
+  failedStatsSet: new Set<string>(),
 };
 
 describe('SeasonsList', () => {
@@ -60,5 +61,40 @@ describe('SeasonsList', () => {
     await user.click(viewButtons[0]);
 
     expect(handleSelect).toHaveBeenCalledWith(mockSeasons[0]);
+  });
+
+  it('shows warning icon for a season whose stats failed to load', () => {
+    render(
+      <SeasonsList
+        seasons={mockSeasons}
+        onSelectSeason={() => {}}
+        seasonStatsMap={{}}
+        loadingStatsMap={{}}
+        failedStatsSet={new Set(['comp-1'])}
+      />
+    );
+
+    // comp-1 row should have the warning icon (title attribute)
+    expect(screen.getByTitle('Stats failed to load')).toBeInTheDocument();
+  });
+
+  it('does not show warning icon for seasons that loaded successfully', () => {
+    const stats = {
+      player_id: '123', competition_id: 'comp-1', competition_name: 'ESEA S55', matches_played: 10,
+      wins: 7, losses: 3, win_rate: 70, kills: 150, deaths: 100, assists: 50,
+      kd_ratio: 1.5, adr: 85, headshot_pct: 48, mvps: 15,
+      multi_kills: { triples: 5, quads: 2, aces: 1 },
+    };
+    render(
+      <SeasonsList
+        seasons={[mockSeasons[0]]}
+        onSelectSeason={() => {}}
+        seasonStatsMap={{ 'comp-1': stats }}
+        loadingStatsMap={{}}
+        failedStatsSet={new Set()}
+      />
+    );
+
+    expect(screen.queryByTitle('Stats failed to load')).not.toBeInTheDocument();
   });
 });
