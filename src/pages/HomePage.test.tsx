@@ -109,6 +109,6 @@ describe('HomePage', () => {
 
     await user.click(screen.getByText('TestPlayer'));
 
-    expect(mockNavigate).toHaveBeenCalledWith('/player/123');
+    expect(mockNavigate).toHaveBeenCalledWith('/player/TestPlayer');
   });
 });

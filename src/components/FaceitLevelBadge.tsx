@@ -11,9 +11,7 @@ export function FaceitLevelBadge({ level, elo }: FaceitLevelBadgeProps) {
 
   return (
     <div className="flex items-center gap-2 flex-shrink-0">
-      {/* Official FACEIT rank image with subtle glow */}
       <div className="relative">
-        {/* Subtle glow effect */}
         <div
           className="absolute inset-0 blur-md opacity-30 rounded-full"
           style={{ backgroundColor: color }}
@@ -24,8 +22,6 @@ export function FaceitLevelBadge({ level, elo }: FaceitLevelBadgeProps) {
           className="relative w-9 h-9 object-contain"
         />
       </div>
-
-      {/* Elo display */}
       <div className="flex flex-col leading-tight">
         <span
           className="text-sm font-bold tabular-nums"

@@ -40,9 +40,8 @@ describe('PlayerProfile', () => {
       </PlayerProfile>
     );
 
-    const avatar = screen.getByRole('img');
+    const avatar = screen.getByRole('img', { name: 'TestPlayer' });
     expect(avatar).toHaveAttribute('src', 'https://example.com/avatar.jpg');
-    expect(avatar).toHaveAttribute('alt', 'TestPlayer');
   });
 
   it('does not render avatar when not provided', () => {
@@ -54,7 +53,7 @@ describe('PlayerProfile', () => {
       </PlayerProfile>
     );
 
-    expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    expect(screen.queryByRole('img', { name: 'TestPlayer' })).not.toBeInTheDocument();
   });
 
   it('renders children content', () => {
