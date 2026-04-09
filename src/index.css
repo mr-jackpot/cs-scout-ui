@@ -107,15 +107,15 @@ body {
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.5s var(--transition-slow) forwards;
+  animation: fade-in-up 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .animate-fade-in {
-  animation: fade-in 0.3s var(--transition-fast) forwards;
+  animation: fade-in 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .animate-scale-in {
-  animation: scale-in 0.3s var(--transition-normal) forwards;
+  animation: scale-in 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .animate-pulse-glow {
