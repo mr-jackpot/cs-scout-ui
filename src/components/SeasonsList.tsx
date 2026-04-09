@@ -84,6 +84,7 @@ export function SeasonsList({ seasons, seasonStatsMap, loadingStatsMap, failedSt
             </div>
 
             <button
+              type="button"
               className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium bg-[var(--color-primary)]/10 text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-200"
               onClick={(e) => {
                 e.stopPropagation();

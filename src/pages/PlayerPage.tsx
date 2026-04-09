@@ -256,6 +256,7 @@ export function PlayerPage() {
             {/* Close button */}
             <div className="flex justify-center mt-6 pb-4">
               <button
+                type="button"
                 className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium glass border border-white/10 text-base-content/80 hover:text-white hover:border-white/20 transition-all duration-200"
                 onClick={closeModal}
               >
