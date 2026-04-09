@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1](https://github.com/mr-jackpot/cs-scout-ui/compare/csscout-v0.3.0...csscout-v0.3.1) (2026-04-09)
+
+
+### Bug Fixes
+
+* fixed refresh pop on season load ([9a78728](https://github.com/mr-jackpot/cs-scout-ui/commit/9a78728933d2d0ff4413a8b9c4ec249f9a49905a))
+* fixed refresh pop on season load ([827d517](https://github.com/mr-jackpot/cs-scout-ui/commit/827d51712d8ce1c4203c32d8fbca187ec47de487))
+
 ## [0.3.0](https://github.com/mr-jackpot/cs-scout-ui/compare/csscout-v0.2.0...csscout-v0.3.0) (2026-04-08)
 
 
