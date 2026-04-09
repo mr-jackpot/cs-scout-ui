@@ -100,6 +100,7 @@ export function PlayerProfile({ player, onBack, children }: PlayerProfileProps) 
 
             {/* Back button */}
             <button
+              type="button"
               className="flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg text-sm font-medium text-base-content/60 hover:text-white hover:bg-white/10 transition-all duration-200 ml-auto md:ml-0"
               onClick={onBack}
             >
