@@ -3,6 +3,8 @@ import type {
   PlayerSearchResponse,
   PlayerSeasonsResponse,
   PlayerStats,
+  PlayerMatchResult,
+  PlayerMatchHistoryResponse,
 } from '../types/api';
 import { config } from '../config';
 
@@ -55,4 +57,18 @@ export async function getPlayerStats(
     throw new Error('Failed to fetch player stats');
   }
   return response.json();
+}
+
+export async function getPlayerMatches(
+  playerId: string,
+  competitionId: string
+): Promise<PlayerMatchResult[]> {
+  const response = await apiFetch(
+    `${API_BASE}/players/${playerId}/competitions/${competitionId}/matches`
+  );
+  if (!response.ok) {
+    throw new Error('Failed to fetch player matches');
+  }
+  const data: PlayerMatchHistoryResponse = await response.json();
+  return data.matches;
 }

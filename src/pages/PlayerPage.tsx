@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getPlayer, getPlayerSeasons, getPlayerStats, searchPlayers } from '../services/api';
 import type { Season, PlayerStats, Player } from '../types/api';
-import { PlayerProfile, SeasonsList, PlayerStatsCard, CareerOverviewCard } from '../components';
+import { PlayerProfile, SeasonsList, PlayerStatsCard, CareerOverviewCard, MatchHistoryList } from '../components';
 
 export function PlayerPage() {
   const { nickname } = useParams<{ nickname: string }>();
@@ -250,7 +250,16 @@ export function PlayerPage() {
                 <p className="text-base-content/40 text-sm">This may be due to rate limiting. Try refreshing the page.</p>
               </div>
             ) : (
-              selectedStats && <PlayerStatsCard stats={selectedStats} />
+              <>
+                {selectedStats && <PlayerStatsCard stats={selectedStats} />}
+                {selectedStats && player && (
+                  <MatchHistoryList
+                    key={`${player.player_id}-${selectedStats.competition_id}`}
+                    playerId={player.player_id}
+                    competitionId={selectedStats.competition_id}
+                  />
+                )}
+              </>
             )}
 
             {/* Close button */}

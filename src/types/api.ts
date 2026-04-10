@@ -60,9 +60,45 @@ export interface PlayerSeasonsResponse {
 }
 
 export interface MultiKills {
+  doubles?: number;
   triples: number;
   quads: number;
   aces: number;
+}
+
+export interface PlayerMapStats {
+  map: string;
+  matches_played: number;
+  wins: number;
+  win_rate: number;
+  kills: number;
+  deaths: number;
+  assists: number;
+  kd_ratio: number;
+  adr: number;
+  headshot_pct: number;
+}
+
+export interface PlayerMatchResult {
+  match_id: string;
+  map: string;
+  started_at: number;
+  finished_at: number;
+  result: 'win' | 'loss' | 'unknown';
+  score: string;
+  kills: number;
+  deaths: number;
+  assists: number;
+  kd_ratio: number;
+  adr: number;
+  headshot_pct: number;
+  mvps: number;
+}
+
+export interface PlayerMatchHistoryResponse {
+  player_id: string;
+  competition_id: string;
+  matches: PlayerMatchResult[];
 }
 
 export interface PlayerStats {
@@ -81,4 +117,19 @@ export interface PlayerStats {
   headshot_pct: number;
   mvps: number;
   multi_kills: MultiKills;
+  // Extended stats (optional — may be 0 for unverified FACEIT stat keys)
+  kr_ratio?: number;
+  damage?: number;
+  headshots?: number;
+  first_kills?: number;
+  entry_count?: number;
+  entry_wins?: number;
+  entry_success_rate?: number;
+  clutch_kills?: number;
+  one_v_one_wins?: number;
+  one_v_two_wins?: number;
+  sniper_kills?: number;
+  utility_damage?: number;
+  flash_successes?: number;
+  maps?: Record<string, PlayerMapStats>;
 }

@@ -3,6 +3,7 @@ import type { PlayerStats } from '../types/api';
 // ESEA average stats for comparison
 export const ESEA_AVERAGES = {
   kd_ratio: 1.0,
+  kr_ratio: 0.65,
   adr: 75,
   headshot_pct: 45,
   win_rate: 50,
