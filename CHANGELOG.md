@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/mr-jackpot/cs-scout-ui/compare/csscout-v0.3.1...csscout-v0.4.0) (2026-04-10)
+
+
+### Features
+
+* add match stats accordions and match history to season modal ([f6ddfeb](https://github.com/mr-jackpot/cs-scout-ui/commit/f6ddfebe5532b3a1c6d6b367a4b96c9c9195733b))
+
+
+### Bug Fixes
+
+* point production API URL to cs-scout-api Cloud Run service ([226b5e5](https://github.com/mr-jackpot/cs-scout-ui/commit/226b5e5acbe6fefb417f3bc219c0c0aedd267b1f))
+
 ## [0.3.1](https://github.com/mr-jackpot/cs-scout-ui/compare/csscout-v0.3.0...csscout-v0.3.1) (2026-04-09)
 
 
