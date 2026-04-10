@@ -120,7 +120,7 @@ export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
 
           {/* Advanced Stats */}
           {hasAdvancedStats && (
-            <AccordionSection title="Advanced Stats" icon="📊">
+            <AccordionSection title="Advanced Stats">
               <div className="space-y-4">
                 {(stats.kr_ratio ?? 0) > 0 && (
                   <StatBar
@@ -142,7 +142,7 @@ export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
 
           {/* Entry & Clutch */}
           {hasEntryClutch && (
-            <AccordionSection title="Entry & Clutch" icon="🎯">
+            <AccordionSection title="Entry & Clutch">
               <div className="space-y-4">
                 {(stats.entry_count ?? 0) > 0 && (
                   <div className="grid grid-cols-3 gap-3">
@@ -165,7 +165,7 @@ export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
           )}
 
           {/* Weapons & Utility */}
-          <AccordionSection title="Weapons & Utility" icon="🔫">
+          <AccordionSection title="Weapons & Utility">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <StatBox value={stats.sniper_kills ?? 0} label="Sniper Kills" />
               <StatBox value={stats.utility_damage ?? 0} label="Utility Dmg" />
@@ -175,7 +175,7 @@ export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
 
           {/* Per-Map Breakdown */}
           {mapRows.length > 0 && (
-            <AccordionSection title="Per-Map Breakdown" icon="🗺️">
+            <AccordionSection title="Per-Map Breakdown">
               <div className="overflow-x-auto -mx-1">
                 <table className="w-full text-sm">
                   <thead>
@@ -207,17 +207,15 @@ export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
 
 interface AccordionSectionProps {
   title: string;
-  icon: string;
   children: React.ReactNode;
 }
 
-function AccordionSection({ title, icon, children }: AccordionSectionProps) {
+function AccordionSection({ title, children }: AccordionSectionProps) {
   return (
     <div className="collapse collapse-arrow bg-base-200/30 rounded-xl border border-white/5 hover:border-white/10 transition-colors">
       <input type="checkbox" className="peer" />
-      <div className="collapse-title text-sm font-semibold text-base-content/70 peer-checked:text-white transition-colors flex items-center gap-2 py-3 min-h-0">
-        <span>{icon}</span>
-        <span>{title}</span>
+      <div className="collapse-title text-sm font-semibold text-base-content/70 peer-checked:text-white transition-colors py-3 min-h-0">
+        {title}
       </div>
       <div className="collapse-content pb-4">
         {children}

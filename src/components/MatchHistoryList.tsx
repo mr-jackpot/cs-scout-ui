@@ -49,8 +49,7 @@ export function MatchHistoryList({ playerId, competitionId }: MatchHistoryListPr
         checked={isOpen}
         onChange={(e) => handleToggle(e.target.checked)}
       />
-      <div className="collapse-title text-sm font-semibold text-base-content/70 peer-checked:text-white transition-colors flex items-center gap-2 py-3 min-h-0">
-        <span>📋</span>
+      <div className="collapse-title text-sm font-semibold text-base-content/70 peer-checked:text-white transition-colors flex items-center py-3 min-h-0">
         <span>Match History</span>
         {status === 'loading' && (
           <span className="loading loading-spinner loading-xs text-base-content/40 ml-auto" />
